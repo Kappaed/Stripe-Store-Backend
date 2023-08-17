@@ -16,17 +16,14 @@ require("dotenv").config({ path: path.resolve(__dirname, "./.env") });
 const app = express();
 const port = 8080;
 
-app.use((req, res, next) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://superlative-crostata-89b75d.netlify.app"
-  );
-  res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  next();
-});
+const corsOptions = {
+  origin: "*",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+app.options("*", cors(corsOptions));
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use(
   express.json({
