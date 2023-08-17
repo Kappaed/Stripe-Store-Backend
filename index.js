@@ -33,8 +33,6 @@ app.use(decodeJWT);
 
 app.use(cors(corsOptions)); // Use this after the variable declaration
 
-app.use(cors({ origin: true }));
-
 app.post("/save-payment-method", validateUser, setupIntent);
 app.post("/webhook", webhook);
 app.post("/create-payment-intent", paymentIntent);
