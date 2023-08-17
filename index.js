@@ -1,6 +1,5 @@
 const express = require("express");
 const path = require("path");
-const cors = require("cors");
 
 const createCheckoutSession = require("./api/checkout");
 const webhook = require("./api/webhook");
@@ -16,13 +15,15 @@ require("dotenv").config({ path: path.resolve(__dirname, "./.env") });
 const app = express();
 const port = 8080;
 
-const corsOptions = {
-  origin: "*",
-  credentials: true, //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
-};
-
-app.use(cors(corsOptions));
+app.use((req, res, next) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://superlative-crostata-89b75d.netlify.app"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
 
 app.use(
   express.json({
@@ -31,7 +32,6 @@ app.use(
 );
 
 app.use(decodeJWT);
-app.options("*", cors(corsOptions));
 
 app.post("/save-payment-method", validateUser, setupIntent);
 app.post("/webhook", webhook);
