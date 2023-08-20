@@ -12,7 +12,8 @@ const getCards = require("./api/getPaymentMethod");
 const updatePaymentIntent = require("./api/updatePaymentIntent");
 
 // require("dotenv").config({ path: path.resolve(__dirname, "./.env") });
-console.log(process.env.PORT);
+console.log(process.env.CUSTOM_PORT);
+console.log(process.env.WEB_APP_URL);
 const app = express();
 
 app.use(cors());
@@ -32,6 +33,6 @@ app.post("/create-checkout-session", createCheckoutSession);
 app.put("/update-payment-intent", updatePaymentIntent);
 app.get("/get-payment-methods", validateUser, getCards);
 app.get("/", (req, res) => res.send("hello world"));
-app.listen(process.env.PORT, "0.0.0.0", () =>
-  console.log("server is listening on port ", process.env.PORT)
+app.listen(process.env.CUSTOM_PORT, "0.0.0.0", () =>
+  console.log("server is listening on port ", process.env.CUSTOM_PORT)
 );
