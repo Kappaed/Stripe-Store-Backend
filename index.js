@@ -11,8 +11,8 @@ const validateUser = require("./auth/validateUser");
 const getCards = require("./api/getPaymentMethod");
 const updatePaymentIntent = require("./api/updatePaymentIntent");
 
-require("dotenv").config({ path: path.resolve(__dirname, "./.env") });
-
+// require("dotenv").config({ path: path.resolve(__dirname, "./.env") });
+console.log(process.env.PORT);
 const app = express();
 
 app.use(cors());
